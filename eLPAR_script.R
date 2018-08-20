@@ -134,21 +134,21 @@ rep.levels = replacement_levels(player_pos,pattr)
 
 
 theoretical.451 = elpar_formation(4,5,1,rep.levels,mod_skellam_mle,50,99)
-p451 <- ggplot(data = theoretical.451,aes(x=rating,y=elpar,group=position))+ theme_fivethirtyeight() +scale_colour_fivethirtyeight()+geom_point(aes(colour=position))+scale_colour_manual(values=c("blue", "red","black","green"))+ theme(axis.title = element_text()) + ylab('Expected LPA per game') + xlab("FIFA Rating")+ggtitle("4-5-1")
+p451 <- ggplot(data = theoretical.451,aes(x=rating,y=elpar,group=position))+ theme_fivethirtyeight() +scale_colour_fivethirtyeight()+geom_point(aes(colour=position))+scale_colour_manual(values=c("blue", "red","black","green"))+ theme(axis.title=element_text(size=16,face="bold")) + ylab('Expected LPA per game') + xlab("FIFA Rating")+ggtitle("4-5-1")
 
 theoretical.352 = elpar_formation(3,5,2,rep.levels,mod_skellam_mle,50,99)
-p352 <- ggplot(data = theoretical.352,aes(x=rating,y=elpar,group=position))+ theme_fivethirtyeight() +scale_colour_fivethirtyeight()+geom_point(aes(colour=position))+scale_colour_manual(values=c("blue", "red","black","green"))+ theme(axis.title = element_text()) + ylab('Expected LPA per game') + xlab("FIFA Rating")+ggtitle("3-5-2")
+p352 <- ggplot(data = theoretical.352,aes(x=rating,y=elpar,group=position))+ theme_fivethirtyeight() +scale_colour_fivethirtyeight()+geom_point(aes(colour=position))+scale_colour_manual(values=c("blue", "red","black","green"))+ theme(axis.title=element_text(size=16,face="bold")) + ylab('Expected LPA per game') + xlab("FIFA Rating")+ggtitle("3-5-2")
 
 theoretical.433 = elpar_formation(4,3,3,rep.levels,mod_skellam_mle,50,99)
-p433 <- ggplot(data = theoretical.433,aes(x=rating,y=elpar,group=position))+ theme_fivethirtyeight() +scale_colour_fivethirtyeight()+geom_point(aes(colour=position))+scale_colour_manual(values=c("blue", "red","black","green"))+ theme(axis.title = element_text()) + ylab('Expected LPA per game') + xlab("FIFA Rating")+ggtitle("4-3-3")
+p433 <- ggplot(data = theoretical.433,aes(x=rating,y=elpar,group=position))+ theme_fivethirtyeight() +scale_colour_fivethirtyeight()+geom_point(aes(colour=position))+scale_colour_manual(values=c("blue", "red","black","green"))+ theme(axis.title=element_text(size=16,face="bold")) + ylab('Expected LPA per game') + xlab("FIFA Rating")+ggtitle("4-3-3")
 
 theoretical.442 = elpar_formation(4,4,2,rep.levels,mod_skellam_mle,50,99)
-p442 <- ggplot(data = theoretical.442,aes(x=rating,y=elpar,group=position))+ theme_fivethirtyeight() +scale_colour_fivethirtyeight()+geom_point(aes(colour=position))+scale_colour_manual(values=c("blue", "red","black","green"))+ theme(axis.title = element_text()) + ylab('Expected LPA per game') + xlab("FIFA Rating")+ggtitle("4-4-2")
+p442 <- ggplot(data = theoretical.442,aes(x=rating,y=elpar,group=position))+ theme_fivethirtyeight() +scale_colour_fivethirtyeight()+geom_point(aes(colour=position))+scale_colour_manual(values=c("blue", "red","black","green"))+ theme(axis.title=element_text(size=16,face="bold")) + ylab('Expected LPA per game') + xlab("FIFA Rating")+ggtitle("4-4-2")
 
 average.all = theoretical.352
 average.all$elpar = (theoretical.352$elpar+theoretical.433$elpar+theoretical.442$elpar+theoretical.451$elpar)/4
 
-pall <- ggplot(data = average.all,aes(x=rating,y=elpar,group=position))+ theme_fivethirtyeight() +scale_colour_fivethirtyeight()+geom_point(aes(colour=position))+scale_colour_manual(values=c("blue", "red","black","green"))+ theme(axis.title = element_text()) + ylab('Expected LPA per game') + xlab("FIFA Rating")+ggtitle("Average Formations")
+pall <- ggplot(data = average.all,aes(x=rating,y=elpar,group=position))+ theme_fivethirtyeight() +scale_colour_fivethirtyeight()+geom_point(aes(colour=position))+scale_colour_manual(values=c("blue", "red","black","green"))+ theme(axis.title=element_text(size=16,face="bold")) + ylab('Expected LPA per game') + xlab("FIFA Rating")+ggtitle("Average Formations")
 
 ############### Market Value Analysis ###############
 
@@ -216,11 +216,13 @@ soccer_mv$cpp = soccer_mv$MarketValue/soccer_mv$elpar
 # symbol for Euro
 Euro <- "\u20AC"
 
-p.cpp.elpar <- ggplot(data = soccer_mv[which(elpar>0),],aes(x=elpar,y=cpp,group=pos))+geom_smooth(aes(color=pos),method='loess',size=2)+theme_fivethirtyeight() +scale_colour_fivethirtyeight()+scale_colour_manual(values=c("blue", "red","black","green"))+ theme(axis.title = element_text()) + xlab("eLPAR") + ylab(paste0("Cost (",Euro,"M)"))+ggtitle("Cost per 1 Expected League Point/90 minutes")
+
+colnames(soccer_mv)[7] = "Position"
+p.cpp.elpar <- ggplot(data = soccer_mv[which(elpar>0),],aes(x=elpar,y=cpp,group=Position))+geom_smooth(aes(color=Position),method='loess',size=2)+theme_fivethirtyeight() +scale_colour_fivethirtyeight()+scale_colour_manual(values=c("blue", "green","black","red"))+ theme(axis.title=element_text(size=16,face="bold")) + xlab("eLPAR") + ylab(paste0(Euro,"(M)/League Point"))+ggtitle("Cost per 1 Expected League Point/90 minutes")
 
 ## Calculate cost per 1 expected league points as a function of a player's rating
 
-p.cpp.rtg <- ggplot(data = soccer_mv[which(elpar>0),],aes(x=rating,y=cpp,group=pos))+geom_smooth(aes(color=pos),method='loess',size=2)+theme_fivethirtyeight() +scale_colour_fivethirtyeight()+scale_colour_manual(values=c("blue", "red","black","green"))+ theme(axis.title = element_text()) + xlab("FIFA rating") + ylab(paste0("Cost (",Euro,"M)"))+ggtitle("Cost per 1 Expected League Point/90 minutes")
+p.cpp.rtg <- ggplot(data = soccer_mv[which(elpar>0),],aes(x=rating,y=cpp,group=Position))+geom_smooth(aes(color=Position),method='loess',size=2)+theme_fivethirtyeight() +scale_colour_fivethirtyeight()+scale_colour_manual(values=c("blue", "green","black","red"))+ theme(axis.title=element_text(size=16,face="bold")) + xlab("FIFA rating") + ylab(paste0(Euro,"(M)/League Point"))+ggtitle("Cost per 1 Expected League Point/90 minutes")
 
 
 #### Reallocate budget based on player's elpar

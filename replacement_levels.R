@@ -44,3 +44,14 @@ replacement_levels <- function(player_pos,pattr,min.date="2015-07-17 00:00:00",m
     replacement_levels
     
 }
+
+
+### The following code will plot the histogram for the ratings along with annotations
+
+#if (FALSE){
+#    h.def <- hist(off)
+#    x =  h.def$mids
+#    y = h.def$density
+#    x.df= data.frame(x=x,y=y)
+#    ggplot(x.df,aes(x=x,y=y))+ theme_fivethirtyeight() +scale_colour_fivethirtyeight() +geom_col()+ stat_function(fun = dnorm, n = 10001, args = list(mean = mean(off,na.rm=T), sd = sd(off,na.rm=T)),color="red") + theme(axis.title=element_text(size=16,face="bold")) + ylab('Probability Density') + xlab("FIFA Rating")+geom_vline(xintercept=rep.levels$middlefield,color="green")+ggtitle("Attack")
+#}
